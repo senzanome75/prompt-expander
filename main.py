@@ -41,6 +41,13 @@ def basilar_query_to_openai(query_for_task):
 def need_search_on_google(step_title, step_for_task):
     query_for_step = "Do I need to do a Google search to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
 
+    query_for_step = [
+        {
+            "role": "user",
+            "content": query_for_step
+        }
+    ]
+
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=query_for_step,
@@ -58,6 +65,14 @@ def need_search_on_google(step_title, step_for_task):
 
 def need_scraping_on_web(step_title, step_for_task):
     query_for_step = "Do I need to do scraping to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
+
+    query_for_step = [
+        {
+            "role": "user",
+            "content": query_for_step
+        }
+    ]
+
 
     response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -138,5 +153,10 @@ for step in steps:
         "need_search_on_google": need_search_on_google(step[0], step[1]),
         "need_scraping_on_web": need_scraping_on_web(step[0], step[1])
     }
+
+
+    print(dictionary_step)
+    print("---")
+
 
     list_steps.append(dictionary_step)
