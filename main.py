@@ -1,4 +1,4 @@
-### Dependencies ###
+### Dependencies
 # pip install --upgrade pip
 # pip install --upgrade openai
 # pip install --upgrade googlesearch-python
