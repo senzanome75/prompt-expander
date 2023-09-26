@@ -1,13 +1,3 @@
-### Dependencies ###
-# pip install --upgrade pip
-# pip install --upgrade openai
-# pip install --upgrade googlesearch-python
-# pip install --upgrade beautifulsoup4
-# pip install --upgrade html5lib
-# pip install --upgrade html2text
-# pip install --upgrade python-dotenv
-
-
 # Import Stuff
 import os
 import re
