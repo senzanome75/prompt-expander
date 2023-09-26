@@ -6,7 +6,7 @@
 This repository concerns a **Prompt Expander**: a software that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
 
 The fundamental features will be:
-1) Expansion of the Task into a certain number of intermediate steps necessary to carry out the Task (partially implemented)
+1) Expansion of the Task into an number of intermediate steps necessary to carry out the Task (partially implemented)
 2) Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 3) Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
 4) Use of Markdown as a format for intermediate processing (both for the predictability of the GPT output and for the simplicity of managing the format)
