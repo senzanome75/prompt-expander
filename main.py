@@ -29,7 +29,7 @@ def basilar_query_to_openai(query_for_task):
         model="gpt-4",
         messages=query_for_task,
         temperature=0.6,
-        max_tokens=4096,
+        max_tokens=2048,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
@@ -52,13 +52,13 @@ def need_search_on_google(step_title, step_for_task):
         model="gpt-4",
         messages=query_for_step,
         temperature=0.5,
-        max_tokens=4096,
+        max_tokens=2048,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
     )
 
-    return response["choices"][0]["message"]["content"] == "yes"
+    return response["choices"][0]["message"]["content"]
 
 
 def need_scraping_on_web(step_title, step_for_task):
@@ -76,16 +76,13 @@ def need_scraping_on_web(step_title, step_for_task):
         model="gpt-4",
         messages=query_for_step,
         temperature=0.5,
-        max_tokens=4096,
+        max_tokens=2048,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
     )
 
-    if response["choices"][0]["message"]["content"] == "yes":
-        return True
-    else:
-        return False
+    return response["choices"][0]["message"]["content"]
 
 
 def search_google(query):
