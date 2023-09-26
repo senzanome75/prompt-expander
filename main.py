@@ -1,4 +1,4 @@
-### Dependencies
+### Dependencies ###
 # pip install --upgrade pip
 # pip install --upgrade openai
 # pip install --upgrade googlesearch-python
@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv()  # take environment variables from .env file.
 
 # Set your OpenAI API KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -101,3 +101,4 @@ first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
 # Extract the steps
 steps = re.findall(first_step_regex, first_step_history[2]["content"])
 
+print(type(steps))
