@@ -24,6 +24,16 @@ The fundamental features will be:
 - pip install --upgrade html2text
 - pip install --upgrade python-dotenv
 
+But a requirements.txt is provided.
+
 ---
+
+### To Run
+Just:
+1) clone the repository: git clone ...
+2) create a venv
+3) put a .env file with your OpenAI API Key into the project root
+4) python3 main.py
+
 
 #### No milestones and no guarantees that it will be completed.
