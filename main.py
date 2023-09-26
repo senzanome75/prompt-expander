@@ -39,7 +39,7 @@ def basilar_query_to_openai(query_for_task):
 
 
 def need_search_on_google(step_title, step_for_task):
-    query_for_step = "Do I need to do a Google search to do this; answer only with yes or no.\n" + step_title + ": " + step_for_task
+    query_for_step = "Do I need to do a Google search to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
 
     query_for_step = [
         {
@@ -62,7 +62,7 @@ def need_search_on_google(step_title, step_for_task):
 
 
 def need_scraping_on_web(step_title, step_for_task):
-    query_for_step = "Do I need to do scraping to do this; answer only with yes or no.\n" + step_title + ": " + step_for_task
+    query_for_step = "Do I need to do scraping to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
 
     query_for_step = [
         {
