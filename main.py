@@ -5,6 +5,7 @@
 # pip install --upgrade beautifulsoup4
 # pip install --upgrade html5lib
 # pip install --upgrade html2text
+# pip install --upgrade python-dotenv
 
 
 # Import Stuff
@@ -15,6 +16,10 @@ import requests
 import html2text
 from googlesearch import search
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+
+
+load_dotenv()  # take environment variables from .env.
 
 # Set your OpenAI API KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
