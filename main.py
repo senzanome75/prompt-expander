@@ -39,7 +39,7 @@ def basilar_query_to_openai(query_for_task):
 
 
 def need_search_on_google(step_title, step_for_task):
-    query_for_step = "Do I need to do a Google search to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
+    query_for_step = "Do I need to do a Google search to do this; answer only with yes or no.\n" + step_title + ": " + step_for_task
 
     query_for_step = [
         {
@@ -52,19 +52,17 @@ def need_search_on_google(step_title, step_for_task):
         model="gpt-4",
         messages=query_for_step,
         temperature=0.5,
-        max_tokens=2,
+        max_tokens=4096,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
     )
 
-    if response["choices"][0]["message"]["content"] == "yes":
-        return True
-    else:
-        return False
+    return response["choices"][0]["message"]["content"] == "yes"
+
 
 def need_scraping_on_web(step_title, step_for_task):
-    query_for_step = "Do I need to do scraping to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
+    query_for_step = "Do I need to do scraping to do this; answer only with yes or no.\n" + step_title + ": " + step_for_task
 
     query_for_step = [
         {
@@ -78,7 +76,7 @@ def need_scraping_on_web(step_title, step_for_task):
         model="gpt-4",
         messages=query_for_step,
         temperature=0.5,
-        max_tokens=2,
+        max_tokens=4096,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
