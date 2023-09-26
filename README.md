@@ -36,4 +36,4 @@ Just:
 4) python3 main.py
 
 
-#### No milestones and no guarantees that it will be completed.
+#### Please note that no milestones are provided and no guarantees that this software will be completed.
