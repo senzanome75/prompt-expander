@@ -24,7 +24,7 @@ The fundamental features will be:
 - pip install --upgrade html2text
 - pip install --upgrade python-dotenv
 
-But a requirements.txt is provided.
+But requirements.txt is provided.
 
 ---
 
