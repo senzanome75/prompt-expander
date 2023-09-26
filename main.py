@@ -149,6 +149,7 @@ for step in steps:
         "need_scraping_on_web": need_scraping_on_web(step[0], step[1])
     }
 
+    step_number =+ 1
 
     print(dictionary_step)
     print("---")
