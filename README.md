@@ -1,7 +1,8 @@
-# Prompt-Expander
+# Prompt Expander
 
-## A **Prompt Expander OpenAI-Based**.
+## A Prompt Expander OpenAI-Based.
 
+---
 
 This repository concerns a **Prompt Expander**: a software that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
 
@@ -12,4 +13,17 @@ The fundamental features will be:
 4) Use of Markdown as a format for intermediate processing (both for the predictability of the GPT output and for the simplicity of managing the format)
 5) Saving detailed logs to disk (in Markdown format), necessary later to reconstruct the input/prompt/output chain.
 
-### No milestones and no guarantees that it will be completed.
+---
+
+### Dependencies
+- pip install --upgrade pip
+- pip install --upgrade openai
+- pip install --upgrade googlesearch-python
+- pip install --upgrade beautifulsoup4
+- pip install --upgrade html5lib
+- pip install --upgrade html2text
+- pip install --upgrade python-dotenv
+
+---
+
+#### No milestones and no guarantees that it will be completed.

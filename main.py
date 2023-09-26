@@ -18,17 +18,16 @@ from googlesearch import search
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-
 load_dotenv()  # take environment variables from .env file.
 
 # Set your OpenAI API KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def basilar_query_to_openai(history):
+def basilar_query_to_openai(query_for_task):
     response = openai.ChatCompletion.create(
         model="gpt-4",
-        messages=history,
+        messages=query_for_task,
         temperature=0.6,
         max_tokens=4096,
         top_p=1,
@@ -36,12 +35,44 @@ def basilar_query_to_openai(history):
         presence_penalty=0
     )
 
-    history.append({
-        "role": "assistant",
-        "content": response["choices"][0]["message"]["content"]
-    })
+    return response["choices"][0]["message"]["content"]
 
-    return history
+
+def need_search_on_google(step_title, step_for_task):
+    query_for_step = "Do I need to do a Google search to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=query_for_step,
+        temperature=0.5,
+        max_tokens=2,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    if response["choices"][0]["message"]["content"] == "yes":
+        return True
+    else:
+        return False
+
+def need_scraping_on_web(step_title, step_for_task):
+    query_for_step = "Do I need to do scraping to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=query_for_step,
+        temperature=0.5,
+        max_tokens=2,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    if response["choices"][0]["message"]["content"] == "yes":
+        return True
+    else:
+        return False
 
 
 def search_google(query):
@@ -70,9 +101,6 @@ def extract_text_from_html_page(url):
     return markdown_text
 
 
-
-
-
 ### The script starts here ###
 
 task = input("Please enter the task to be performed: ")
@@ -88,17 +116,27 @@ history = [
     }
 ]
 
-first_step_history = basilar_query_to_openai(history)
-
-
-
-# steps = first_step_prompt[2]["content"].split("\n\n")
-
+first_step_response = basilar_query_to_openai(history)
 
 # Define the RegEx
 first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
 
 # Extract the steps
-steps = re.findall(first_step_regex, first_step_history[2]["content"])
+steps = re.findall(first_step_regex, first_step_response)
 
-print(type(steps))
+# Initialize some variables
+dictionary_step = dict()
+list_steps = list()
+step_number = 0
+
+# Fill a list with the step each in a dictionary
+for step in steps:
+    dictionary_step = {
+        "step_number": step_number,
+        "step_title": step[0],
+        "step_for_task": step[1],
+        "need_search_on_google": need_search_on_google(step[0], step[1]),
+        "need_scraping_on_web": need_scraping_on_web(step[0], step[1])
+    }
+
+    list_steps.append(dictionary_step)
