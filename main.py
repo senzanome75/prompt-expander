@@ -19,7 +19,7 @@ def basilar_query_to_openai(query_for_task):
         model="gpt-4",
         messages=query_for_task,
         temperature=0.6,
-        max_tokens=2048,
+        max_tokens=4096,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
@@ -75,6 +75,30 @@ def need_scraping_on_web(step_title, step_for_task):
     return response["choices"][0]["message"]["content"]
 
 
+
+def what_language_is_it_written_in(prompt):
+    prompt = "In what language is the following text? Reply exclusively with an ISO 639-1 code.\n" + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
+
+
 def search_google(query):
     try:
         # Search on Google
@@ -102,9 +126,10 @@ def extract_text_from_html_page(url):
 
 
 ### The script starts here ###
-
+# Input the task
 task = input("Please enter the task to be performed: ")
 
+# Build the first prompt expansion
 history = [
     {
         "role": "user",
@@ -112,11 +137,27 @@ history = [
     },
     {
         "role": "assistant",
-        "content": "Decide how many steps are needed to accomplish the task and list them in a numbered list consisting of one line for each step, separating each steps with blank lines; format the response at this query in markdown."
+        "content": "Decide how many steps are needed to accomplish the task and list them in a numbered list. Each step must be following the previous one and necessary for the next one, each step must be atomic. The list consisting of one line for each step, separating each steps with a blank line; format the response at this query in markdown."
     }
 ]
 
+# First query to OpenAI
 first_step_response = basilar_query_to_openai(history)
+print("---")
+print("First step response from OpenAI")
+print(first_step_response["choices"][0]["message"]["content"])
+print("---")
+
+# Extract language from task in ISO 639-1 code
+language = what_language_is_it_written_in(task)
+
+print("---")
+print("ISO 639-1 language code")
+print(language["choices"][0]["message"]["content"])
+print("---")
+
+
+
 
 # Define the RegEx
 first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
