@@ -8,9 +8,12 @@ from googlesearch import search
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env file.
 
-# Set your OpenAI API KEY
+# Take environment variables from .env file
+load_dotenv()
+
+
+# Set OpenAI API KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
@@ -141,16 +144,23 @@ history = [
     }
 ]
 
+
 # First query to OpenAI
 first_step_response = basilar_query_to_openai(history)
+
+
+# Debug Print
 print("---")
 print("First step response from OpenAI")
 print(first_step_response)
 print("---")
 
+
 # Extract language from task in ISO 639-1 code
 language = what_language_is_it_written_in(task)
 
+
+# Debug Print
 print("---")
 print("ISO 639-1 language code")
 print(language)
@@ -163,13 +173,14 @@ first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
 # Extract the steps
 steps = re.findall(first_step_regex, first_step_response)
 
+
 # Initialize some variables
 dictionary_step = dict()
 list_steps = list()
 step_number = 0
 
 
-
+# Debug Print
 print(steps)
 print(type(steps))
 
@@ -189,6 +200,7 @@ for step in steps:
 
     step_number =+ 1
 
+    # Debug Print
     print(dictionary_step)
     print("---")
 
