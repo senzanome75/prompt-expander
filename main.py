@@ -145,7 +145,7 @@ first_step_response = basilar_query_to_openai(history)
 
 # Debug Print
 print("---")
-print("First step response from OpenAI")
+print("First step raw response from OpenAI")
 print(first_step_response)
 print("---")
 
