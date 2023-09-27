@@ -10,7 +10,7 @@ The fundamental features will be:
 1) Expansion of a task into a number of intermediate steps necessary to carry out the task (implemented)
 2) Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 3) Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
-4) Understand the language of task and reply in ISO 639-1 code. (implemented)
+4) Understand the language of task and reply with ISO 639-1 code. (implemented)
 5) Use of Markdown as a standard for intermediate processing (both for the predictability of GPT output and for the simplicity of managing the format itself)
 6) Saving detailed logs to disk (in Markdown format), necessary later to reconstruct the input/prompt/output chain (to do)
 
