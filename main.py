@@ -137,7 +137,7 @@ history = [
     },
     {
         "role": "assistant",
-        "content": "Decide how many steps are needed to accomplish the task and list them in a numbered list. Each step must be following the previous one and necessary for the next one, each step must be atomic. The list consisting of one line for each step, separating each steps with a blank line; format the response at this query in markdown."
+        "content": "Decide how many steps are needed to accomplish the task and list them in a numbered list. The list must consisting of one line for each step, separating each steps with a blank line; format the response at this query in markdown."
     }
 ]
 
@@ -157,8 +157,6 @@ print(language)
 print("---")
 
 
-
-
 # Define the RegEx
 first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
 
@@ -170,8 +168,17 @@ dictionary_step = dict()
 list_steps = list()
 step_number = 0
 
+
+
+print(steps)
+print(type(steps))
+
+
+
+
 # Fill a list with the step each in a dictionary
 for step in steps:
+
     dictionary_step = {
         "step_number": step_number,
         "step_title": step[0],
