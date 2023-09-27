@@ -145,7 +145,7 @@ history = [
 first_step_response = basilar_query_to_openai(history)
 print("---")
 print("First step response from OpenAI")
-print(first_step_response["choices"][0]["message"]["content"])
+print(first_step_response)
 print("---")
 
 # Extract language from task in ISO 639-1 code
@@ -153,7 +153,7 @@ language = what_language_is_it_written_in(task)
 
 print("---")
 print("ISO 639-1 language code")
-print(language["choices"][0]["message"]["content"])
+print(language)
 print("---")
 
 
