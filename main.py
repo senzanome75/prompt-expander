@@ -8,10 +8,8 @@ from googlesearch import search
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
-
 # Take environment variables from .env file
 load_dotenv()
-
 
 # Set OpenAI API KEY
 openai.api_key = os.getenv("OPENAI_API_KEY")
@@ -55,7 +53,7 @@ def need_search_on_google(step_title, step_for_task):
 
 
 def need_scraping_on_web(step_title, step_for_task):
-    query_for_step = "Do I need to do scraping to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
+    query_for_step = "Do I need to do scraping on the web to do this? Answer only with yes or no.\n" + step_title + ": " + step_for_task
 
     query_for_step = [
         {
@@ -63,7 +61,6 @@ def need_scraping_on_web(step_title, step_for_task):
             "content": query_for_step
         }
     ]
-
 
     response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -76,7 +73,6 @@ def need_scraping_on_web(step_title, step_for_task):
     )
 
     return response["choices"][0]["message"]["content"]
-
 
 
 def what_language_is_it_written_in(prompt):
@@ -144,10 +140,8 @@ history = [
     }
 ]
 
-
 # First query to OpenAI
 first_step_response = basilar_query_to_openai(history)
-
 
 # Debug Print
 print("---")
@@ -155,10 +149,8 @@ print("First step response from OpenAI")
 print(first_step_response)
 print("---")
 
-
 # Extract language from task in ISO 639-1 code
 language = what_language_is_it_written_in(task)
-
 
 # Debug Print
 print("---")
@@ -166,30 +158,23 @@ print("ISO 639-1 language code")
 print(language)
 print("---")
 
-
 # Define the RegEx
 first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
 
 # Extract the steps
 steps = re.findall(first_step_regex, first_step_response)
 
-
 # Initialize some variables
 dictionary_step = dict()
 list_steps = list()
 step_number = 0
 
-
 # Debug Print
 print(steps)
 print(type(steps))
 
-
-
-
 # Fill a list with the step each in a dictionary
 for step in steps:
-
     dictionary_step = {
         "step_number": step_number,
         "step_title": step[0],
@@ -198,11 +183,10 @@ for step in steps:
         "need_scraping_on_web": need_scraping_on_web(step[0], step[1])
     }
 
-    step_number =+ 1
+    step_number += 1
 
     # Debug Print
     print(dictionary_step)
     print("---")
-
 
     list_steps.append(dictionary_step)
