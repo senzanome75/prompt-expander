@@ -4,7 +4,7 @@
 
 ---
 
-This repository concerns a **Prompt Expander**: a software that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
+This repository concerns a **Prompt Expander**: a proof of concept software that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
 
 The fundamental features will be:
 1) Expansion of a task into a number of intermediate steps necessary to carry out the task (partially implemented)
