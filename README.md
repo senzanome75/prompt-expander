@@ -32,8 +32,9 @@ But requirements.txt is provided.
 Just:
 1) clone the repository: git clone ...
 2) create a venv
-3) put a .env file with your OpenAI API Key into the project root
-4) python3 main.py
+3) install dependencies or use requirements.txt
+4) put a .env file with your OpenAI API Key into the project root
+5) python3 main.py
 
 
 #### No milestones and no guarantees that it will be completed.
