@@ -36,6 +36,7 @@ Just:
 3) install dependencies or use requirements.txt
 4) put a .env file with your OpenAI API Key into the project root
 5) python3 main.py
+6) enjoy? ;)
 
 
 #### Please note that no milestones are provided and no guarantees that this software will be completed.
