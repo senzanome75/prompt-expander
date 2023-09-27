@@ -11,7 +11,7 @@ The fundamental features will be:
 2) Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 3) Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
 4) Understand the language of task and reply with ISO 639-1 code. (implemented)
-5) Use of Markdown as a standard for processing (both for the predictability of GPT output and for the simplicity of manage the format itself)
+5) Use of Markdown as a standard for processing (both for **predictability of OpenAI-GPT 3.5/4 output** and for **simplicity of manage** the format itself)
 6) Saving detailed logs to disk (in Markdown format), necessary later to reconstruct the inputs/prompts/outputs chain (to do)
 
 ---
