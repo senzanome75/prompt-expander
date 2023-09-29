@@ -4,6 +4,7 @@ import re
 import openai
 import requests
 import html2text
+import time
 from googlesearch import search
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
@@ -36,7 +37,7 @@ def basilar_query_to_openai(query_for_task):
     return response["choices"][0]["message"]["content"]
 
 
-def correct_prompt(prompt):
+def is_the_prompt_correct(prompt):
     prompt = "Does this text need to be corrected semantically or syntactically? Answer exclusively with yes or no.\n" + prompt
 
     prompt = [
@@ -57,6 +58,31 @@ def correct_prompt(prompt):
     )
 
     return response["choices"][0]["message"]["content"]
+
+
+def prompt_corrector(prompt):
+    prompt = "Correct semantically and syntactically this text: " + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
+
+
 
 
 def need_search_on_google(step_title, step_for_task):
@@ -161,12 +187,20 @@ print("---")
 
 
 # Examine if input task is semantically and syntactically correct
-need_corrections = correct_prompt(task)
+need_corrections = is_the_prompt_correct(task)
 need_corrections_boolean = reply_boolean_to_assertion(need_corrections)
 
 # Debug print
 print("Does this text need to be corrected semantically or syntactically? " + need_corrections)
 print("---")
+
+
+if need_corrections_boolean:
+    task = prompt_corrector(task)
+
+    # Debug Print
+    print("The task after correction is: " + task)
+    print("---")
 
 
 # Build the first prompt expansion
@@ -207,7 +241,7 @@ steps = re.findall(first_step_regex, first_step_response)
 # Initialize some variables
 dictionary_step = dict()
 list_steps = list()
-step_number = 0
+step_number = 1
 
 # Debug Print
 print(steps)
@@ -215,6 +249,15 @@ print(type(steps))
 
 # Fill a list with the step each in a dictionary
 for step in steps:
+
+    # Debug Print
+    print("Now wait 40 seconds for avoid exceeding 10,000 tokens/min")
+    print("---")
+
+    # To avoid exceeding 10,000 tokens/min
+    time.sleep(40)
+
+    # Each step in a dictionary
     dictionary_step = {
         "step_number": step_number,
         "step_title": step[0],
@@ -229,4 +272,5 @@ for step in steps:
     print(dictionary_step)
     print("---")
 
+    # Add the dictionary to the list
     list_steps.append(dictionary_step)
