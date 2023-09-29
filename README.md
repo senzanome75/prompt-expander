@@ -6,9 +6,13 @@
 
 This repository concerns a **Prompt Expander**: a **Proof of Concept Software** that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
 
+In my view **an initial expansion of the prompt should be the first task an agent should perform**. Optimizing the initial prompt (with something like Grammarly) could also help generate a better response.
+
+---
+
 The fundamental features will be:
 1) Expansion of a task into a number of intermediate steps necessary to carry out the task (implemented)
-2) Language correction (grammar, etc.) of the prompt and translation into English (todo) 
+2) Language correction (grammar, etc.) of the prompt and (maybe) translation into English (todo) 
 3) Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 4) Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
 5) Understand the language of task and reply with ISO 639-1 code. (implemented)
@@ -42,5 +46,7 @@ Just:
 ---
 
 #### Please note that no milestones are provided and no guarantees that this software will be completed.
+
+---
 
 ## Please note that, currently, the software has to be slowed down because it requires more than 10,000 tokens per minute... I'm working on it :/
