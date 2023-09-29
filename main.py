@@ -29,6 +29,31 @@ def basilar_query_to_openai(query_for_task):
     return response["choices"][0]["message"]["content"]
 
 
+def correct_prompt(prompt):
+    prompt = "Does this text need to be corrected semantically or syntactically? Answer exclusively with yes or no.\n" + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
+
+
+
+
 def need_search_on_google(step_title, step_for_task):
     query_for_step = "Do I need to do a Google search to do this? Answer exclusively with yes or no.\n" + step_title + ": " + step_for_task
 
@@ -127,6 +152,15 @@ def extract_text_from_html_page(url):
 ### The script starts here ###
 # Input the task
 task = input("Please enter the task to be performed: ")
+print("---")
+
+# Examine if input task is semantically and syntactically correct
+is_correct = correct_prompt(task)
+
+# Debug print
+print("Is input task semantically and syntactically correct?" + is_correct)
+print("---")
+
 
 # Build the first prompt expansion
 history = [
@@ -144,7 +178,6 @@ history = [
 first_step_response = basilar_query_to_openai(history)
 
 # Debug Print
-print("---")
 print("First step raw response from OpenAI")
 print(first_step_response)
 print("---")
