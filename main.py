@@ -15,6 +15,13 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
+def reply_boolean_to_assertion(assertion):
+    if assertion.lower() == "yes":
+        return True
+    elif assertion.lower() == "no":
+        return False
+
+
 def basilar_query_to_openai(query_for_task):
     response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -50,8 +57,6 @@ def correct_prompt(prompt):
     )
 
     return response["choices"][0]["message"]["content"]
-
-
 
 
 def need_search_on_google(step_title, step_for_task):
@@ -123,10 +128,10 @@ def what_language_is_it_written_in(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def search_google(query):
+def search_google(query, query_language):
     try:
         # Search on Google
-        results = search(query, num_results=20, advanced=True, lang="it")
+        results = search(query, num_results=10, advanced=True, lang=query_language)
         return results
 
     except Exception as e:
@@ -154,11 +159,13 @@ def extract_text_from_html_page(url):
 task = input("Please enter the task to be performed: ")
 print("---")
 
+
 # Examine if input task is semantically and syntactically correct
-is_correct = correct_prompt(task)
+need_corrections = correct_prompt(task)
+need_corrections_boolean = reply_boolean_to_assertion(need_corrections)
 
 # Debug print
-print("Does this text need to be corrected semantically or syntactically? " + is_correct)
+print("Does this text need to be corrected semantically or syntactically? " + need_corrections)
 print("---")
 
 
@@ -212,8 +219,8 @@ for step in steps:
         "step_number": step_number,
         "step_title": step[0],
         "step_for_task": step[1],
-        "need_search_on_google": need_search_on_google(step[0], step[1]),
-        "need_scraping_on_web": need_scraping_on_web(step[0], step[1])
+        "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step[0], step[1])),
+        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step[0], step[1]))
     }
 
     step_number += 1
