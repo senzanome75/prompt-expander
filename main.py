@@ -224,6 +224,52 @@ def extract_text_from_html_page(url):
     return markdown_text
 
 
+def it_contains_url(prompt):
+    prompt = "Does this text contain a URL? Reply exclusively with yes or no.\n" + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
+
+
+def contains_url(prompt):
+    prompt = "Extract the URL contained in this text; reply to this query with a URL only.\n" + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
+
+
 ### The script starts here ###
 # Input the task
 task = input("Please enter the task to be performed: ")
@@ -257,7 +303,24 @@ if reply_boolean_to_assertion(the_prompt_is_geolocalizable):
 
     # Debug Print
     print("The geographic location in the task is: " + place)
-    print("---")
+print("---")
+
+
+the_prompt_contain_url = it_contains_url(task)
+
+# Debug Print
+print("Does the prompt contains URL? " + the_prompt_contain_url)
+
+
+if reply_boolean_to_assertion(the_prompt_contain_url):
+    url = contains_url(task)
+
+    # Debug Print
+    print("The URL in the task is: " + url)
+print("---")
+
+
+
 
 # Build the first prompt expansion
 history = [
@@ -297,9 +360,9 @@ print(language)
 print("---")
 
 # Define the RegEx
-# To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly.
+# To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly
 numbered_list_regex = r"\d+\[.]\s(.+)\n*"
-# To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly.
+# To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly
 bulleted_list_regex = r"-\s(.+)\n*"
 
 # Extract the steps from numbered list in markdown
