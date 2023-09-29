@@ -271,6 +271,15 @@ history = [
     }
 ]
 
+
+# Debug Print
+print("Now wait 40 seconds for avoid exceeding 10,000 tokens/min")
+print("---")
+
+# To avoid exceeding 10,000 tokens/min
+time.sleep(40)
+
+
 # First query to OpenAI
 first_step_response = basilar_query_to_openai(history)
 
@@ -288,9 +297,9 @@ print(language)
 print("---")
 
 # Define the RegEx
-# To extract the steps from numbered list in markdown
+# To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly.
 numbered_list_regex = r"\d+\[.]\s(.+)\n*"
-# To extract the points from bulleted list in markdown
+# To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly.
 bulleted_list_regex = r"-\s(.+)\n"
 
 # Extract the steps from numbered list in markdown
