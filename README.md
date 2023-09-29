@@ -7,7 +7,7 @@ This repository concerns a **Prompt Expander**: a **Proof of Concept Software** 
 
 In my view **an initial expansion of the prompt should be the first task an agent should perform**. Optimizing the initial prompt (with something like Grammarly) could also help generate a better response.
 
-In addition to this, an Agent should extract as much information as possible from the input task such as: **geographic location** extraction, **ISO 639-1 code** extraction, **URL** extraction, etc.
+In addition to this, an Agent should extract as much information as possible from the input task such as: **geographic location**, **ISO 639-1 code**, **URL**, etc.
 
 ---
 
