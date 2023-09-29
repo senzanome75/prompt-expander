@@ -158,7 +158,7 @@ print("---")
 is_correct = correct_prompt(task)
 
 # Debug print
-print("Does this text need to be corrected semantically or syntactically?" + is_correct)
+print("Does this text need to be corrected semantically or syntactically? " + is_correct)
 print("---")
 
 
