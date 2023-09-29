@@ -83,8 +83,31 @@ def prompt_corrector(prompt):
     return response["choices"][0]["message"]["content"]
 
 
+def it_is_geolocalizable(prompt):
+    prompt = "Does this text refer to a geographic location? Answer exclusively with yes or no.\n" + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
+
+
 def geolocalize(prompt):
-    prompt = "Correct semantically and syntactically this text: " + prompt
+    prompt = "To which geographic location does the following text refer? Reply only with a geographic location." + prompt
 
     prompt = [
         {
@@ -220,6 +243,18 @@ if need_corrections_boolean:
     # Debug Print
     print("The task after correction is: " + task)
     print("---")
+
+
+
+the_prompt_is_geolocalizable = it_is_geolocalizable(task)
+
+if reply_boolean_to_assertion(the_prompt_is_geolocalizable):
+    place = geolocalize(task)
+
+    # Debug Print
+    print("The place in the task is: " + place)
+    print("---")
+
 
 # Build the first prompt expansion
 history = [

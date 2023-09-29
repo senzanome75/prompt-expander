@@ -12,6 +12,7 @@ In my view **an initial expansion of the prompt should be the first task an agen
 The fundamental features will be:
 - Expansion of a task into a number of intermediate steps necessary to carry out the task (implemented)
 - Language correction (grammar, etc.) of the prompt (implemented)
+- Understand if the task includes a geographic location and locate it (implemented)
 - Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 - Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
 - Understand the language of task and reply with ISO 639-1 code (implemented)
