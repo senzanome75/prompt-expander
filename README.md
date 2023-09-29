@@ -2,7 +2,6 @@
 
 ## A Prompt Expander OpenAI-Based.
 
----
 
 This repository concerns a **Prompt Expander**: a **Proof of Concept Software** that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
 
