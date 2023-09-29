@@ -84,7 +84,26 @@ def prompt_corrector(prompt):
 
 
 def geolocalize(prompt):
-    pass
+    prompt = "Correct semantically and syntactically this text: " + prompt
+
+    prompt = [
+        {
+            "role": "user",
+            "content": prompt
+        }
+    ]
+
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=prompt,
+        temperature=0.5,
+        max_tokens=2048,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0
+    )
+
+    return response["choices"][0]["message"]["content"]
 
 
 def need_search_on_google(step_title, step_for_task):
