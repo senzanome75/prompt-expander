@@ -48,4 +48,4 @@ Just:
 
 ---
 
-## Please note that, currently, the software has to be slowed down because it requires more than 10,000 tokens per minute... I'm working on it :/
+## Please note that, currently, the software has to be slowed down because it requires more than 10,000 tokens per minute...
