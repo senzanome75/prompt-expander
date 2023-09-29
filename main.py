@@ -129,8 +129,8 @@ def geolocalize(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def need_search_on_google(step_title, step_for_task):
-    query_for_step = "Do I need to do a Google search to do this? Answer exclusively with yes or no.\n" + step_title + ": " + step_for_task
+def need_search_on_google(step_for_task):
+    query_for_step = "Do I need to do a Google search to do this? Answer exclusively with yes or no.\n" + step_for_task
 
     query_for_step = [
         {
@@ -152,8 +152,8 @@ def need_search_on_google(step_title, step_for_task):
     return response["choices"][0]["message"]["content"]
 
 
-def need_scraping_on_web(step_title, step_for_task):
-    query_for_step = "Do I need to do scraping on the web to do this? Answer exclusively with yes or no.\n" + step_title + ": " + step_for_task
+def need_scraping_on_web(step_for_task):
+    query_for_step = "Do I need to do scraping on the web to do this? Answer exclusively with yes or no.\n" + step_for_task
 
     query_for_step = [
         {
@@ -244,17 +244,18 @@ if need_corrections_boolean:
     print("The task after correction is: " + task)
     print("---")
 
-
-
 the_prompt_is_geolocalizable = it_is_geolocalizable(task)
+
+# Debug Print
+print("Does the task talk about a geographic location? " + the_prompt_is_geolocalizable)
+
 
 if reply_boolean_to_assertion(the_prompt_is_geolocalizable):
     place = geolocalize(task)
 
     # Debug Print
-    print("The place in the task is: " + place)
+    print("The geographic location in the task is: " + place)
     print("---")
-
 
 # Build the first prompt expansion
 history = [
@@ -280,14 +281,13 @@ print("---")
 language = what_language_is_it_written_in(task)
 
 # Debug Print
-print("---")
 print("ISO 639-1 language code")
 print(language)
 print("---")
 
 # Define the RegEx
 # To extract the steps from numbered list in markdown
-numbered_list_regex = r"\d+.\s\W+(.+):*\*\*:*\s(.+)\n\n"
+numbered_list_regex = r"\d+\[.]\s(.+)\n*"
 # To extract the points from bulleted list in markdown
 bulleted_list_regex = r"-\s(.+)\n"
 
@@ -315,10 +315,9 @@ for step in steps:
     # Each step in a dictionary
     dictionary_step = {
         "step_number": step_number,
-        "step_title": step[0],
-        "step_for_task": step[1],
-        "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step[0], step[1])),
-        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step[0], step[1]))
+        "step_for_task": step[0],
+        "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step[0])),
+        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step[0]))
     }
 
     step_number += 1
