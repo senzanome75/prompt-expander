@@ -83,6 +83,8 @@ def prompt_corrector(prompt):
     return response["choices"][0]["message"]["content"]
 
 
+def geolocalize(prompt):
+    pass
 
 
 def need_search_on_google(step_title, step_for_task):
@@ -185,7 +187,6 @@ def extract_text_from_html_page(url):
 task = input("Please enter the task to be performed: ")
 print("---")
 
-
 # Examine if input task is semantically and syntactically correct
 need_corrections = is_the_prompt_correct(task)
 need_corrections_boolean = reply_boolean_to_assertion(need_corrections)
@@ -194,14 +195,12 @@ need_corrections_boolean = reply_boolean_to_assertion(need_corrections)
 print("Does this text need to be corrected semantically or syntactically? " + need_corrections)
 print("---")
 
-
 if need_corrections_boolean:
     task = prompt_corrector(task)
 
     # Debug Print
     print("The task after correction is: " + task)
     print("---")
-
 
 # Build the first prompt expansion
 history = [
@@ -211,7 +210,7 @@ history = [
     },
     {
         "role": "assistant",
-        "content": "Decide how many steps are needed to accomplish the task and list them in a numbered list. The list must consisting of one line for each step, separating each steps with a blank line; format the response at this query in markdown."
+        "content": "Decide how many steps are needed to accomplish the task and list them in a numbered list. The list must consisting of one line for each step; format the response at this query in markdown."
     }
 ]
 
@@ -233,10 +232,13 @@ print(language)
 print("---")
 
 # Define the RegEx
-first_step_regex = r"\d+.\s\*\*(.+)\*\*\:\s(.+)\n\n"
+# To extract the steps from numbered list in markdown
+numbered_list_regex = r"\d+.\s\W+(.+):*\*\*:*\s(.+)\n\n"
+# To extract the points from bulleted list in markdown
+bulleted_list_regex = r"-\s(.+)\n"
 
-# Extract the steps
-steps = re.findall(first_step_regex, first_step_response)
+# Extract the steps from numbered list in markdown
+steps = re.findall(numbered_list_regex, first_step_response + "\n")
 
 # Initialize some variables
 dictionary_step = dict()
@@ -249,7 +251,6 @@ print(type(steps))
 
 # Fill a list with the step each in a dictionary
 for step in steps:
-
     # Debug Print
     print("Now wait 40 seconds for avoid exceeding 10,000 tokens/min")
     print("---")
@@ -274,7 +275,5 @@ for step in steps:
 
     # Add the dictionary to the list
     list_steps.append(dictionary_step)
-
-
 
 # To be continued...
