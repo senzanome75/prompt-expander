@@ -15,7 +15,7 @@ The fundamental features will be:
 - Language correction (grammar, etc.) of the prompt and (maybe) translation into English (todo) 
 - Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 - Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
-- Understand the language of task and reply with ISO 639-1 code. (implemented)
+- Understand the language of task and reply with ISO 639-1 code (implemented)
 - Use of Markdown as a standard for processing (both for **predictability of OpenAI GPT 3.5/4 output** and for **simplicity of manage** the format itself)
 - Saving detailed logs to disk (in Markdown format), necessary later to reconstruct the inputs/prompts/outputs chain (to do)
 
