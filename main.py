@@ -235,14 +235,15 @@ need_corrections_boolean = reply_boolean_to_assertion(need_corrections)
 
 # Debug print
 print("Does this text need to be corrected semantically or syntactically? " + need_corrections)
-print("---")
+
 
 if need_corrections_boolean:
     task = prompt_corrector(task)
 
     # Debug Print
     print("The task after correction is: " + task)
-    print("---")
+print("---")
+
 
 the_prompt_is_geolocalizable = it_is_geolocalizable(task)
 
