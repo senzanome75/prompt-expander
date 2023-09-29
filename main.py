@@ -300,7 +300,7 @@ print("---")
 # To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly.
 numbered_list_regex = r"\d+\[.]\s(.+)\n*"
 # To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly.
-bulleted_list_regex = r"-\s(.+)\n"
+bulleted_list_regex = r"-\s(.+)\n*"
 
 # Extract the steps from numbered list in markdown
 steps = re.findall(numbered_list_regex, first_step_response + "\n")
