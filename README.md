@@ -2,7 +2,7 @@
 
 ## A Prompt Expander OpenAI-Based.
 
-
+### Introduction
 This repository concerns a **Prompt Expander**: a **Proof of Concept Software** that uses **OpenAI API** itself to improve the performance of a **Task** requested in input.
 
 In my view **an initial expansion of the prompt should be the first task an agent should perform**. Optimizing the initial prompt (with something like Grammarly) could also help generate a better response.
@@ -11,7 +11,7 @@ In addition to this, an Agent should extract as much information as possible fro
 
 ---
 
-Using **markdown** as the format in which to request responses to **prompts** opens up the possibility of using common **regexes** to manage output from GPT 3.5/4 by taking advantage of the predictability of the output.
+IMPORTANT: using **markdown** as the format in which to request responses to **prompts** opens up the possibility of using common **regexes** to manage output from GPT 3.5/4 by taking advantage of the predictability of the output.
 
 ---
 
