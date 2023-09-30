@@ -25,21 +25,21 @@ def reply_boolean_or_none_to_assertion(assertion):
         return None
 
 
-def basilar_query_to_openai(query_for_task):
+def basilar_query_to_openai(prompt, model="gpt-4", temperature=0.6, max_tokens=6144, top_p=1, frequency_penalty=0, presence_penalty=0):
     response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=query_for_task,
-        temperature=0.6,
-        max_tokens=4096,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        model=model,
+        messages=prompt,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def is_the_prompt_correct(prompt):
+def is_the_prompt_correct(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "Does this text need to be corrected semantically or syntactically? Answer exclusively with yes or no.\n" + prompt
 
     prompt = [
@@ -50,19 +50,19 @@ def is_the_prompt_correct(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def prompt_corrector(prompt):
+def prompt_corrector(prompt, model="gpt-4", temperature=0.6, max_tokens=4096, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "Correct semantically and syntactically this text: " + prompt
 
     prompt = [
@@ -73,19 +73,19 @@ def prompt_corrector(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def is_it_geolocalizable(prompt):
+def is_it_geolocalizable(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "Does this text include a geographic location? Answer exclusively with yes or no.\n" + prompt
 
     prompt = [
@@ -96,19 +96,19 @@ def is_it_geolocalizable(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def geolocalize(prompt):
+def geolocalize(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "To which geographic location does the following text refer? Reply only with a geographic location." + prompt
 
     prompt = [
@@ -119,13 +119,13 @@ def geolocalize(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
