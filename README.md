@@ -18,11 +18,11 @@ IMPORTANT: using **Markdown** as the format in which to request responses to **p
 ### The features will:
 - Expansion of a task into a number of intermediate steps necessary to carry out the task (implemented)
 - Language correction (grammar, etc.) of the prompt (implemented)
-- Understand if the task includes a geographic location and locate it (implemented)
+- Understand if the task includes a geographic location and extract it (implemented)
+- Understand the language of task and reply with ISO 639-1 language code (implemented)
+- Understand if the task includes a URL and extract it (implemented)
 - Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
 - Understand whether scraping from a web page is necessary to carry out a step (partially implemented)
-- Understand the language of task and reply with ISO 639-1 code (implemented)
-- Understand if the task includes a URL and extract it (implemented)
 - Saving detailed logs to disk (in Markdown format), necessary later to reconstruct the inputs/prompts/outputs chain (to do)
 - Use of Markdown as a standard for processing (both for **predictability of OpenAI GPT 3.5/4 output** and for **simplicity of manage** the format itself)
 
