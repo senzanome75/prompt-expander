@@ -16,11 +16,13 @@ load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 
-def reply_boolean_to_assertion(assertion):
+def reply_boolean_or_none_to_assertion(assertion):
     if assertion.lower() == "yes":
         return True
     elif assertion.lower() == "no":
         return False
+    else:
+        return None
 
 
 def basilar_query_to_openai(query_for_task):
@@ -277,7 +279,7 @@ print("---")
 
 # Examine if input task is semantically and syntactically correct
 need_corrections = is_the_prompt_correct(task)
-need_corrections_boolean = reply_boolean_to_assertion(need_corrections)
+need_corrections_boolean = reply_boolean_or_none_to_assertion(need_corrections)
 
 # Debug print
 print("Does this text need to be corrected semantically or syntactically? " + need_corrections)
@@ -298,7 +300,7 @@ the_prompt_is_geolocalizable = is_it_geolocalizable(task)
 print("Does the task talk about a geographic location? " + the_prompt_is_geolocalizable)
 
 
-if reply_boolean_to_assertion(the_prompt_is_geolocalizable):
+if reply_boolean_or_none_to_assertion(the_prompt_is_geolocalizable):
     place = geolocalize(task)
 
     # Debug Print
@@ -312,7 +314,7 @@ the_prompt_contain_url = it_contains_url(task)
 print("Does the prompt contains URL? " + the_prompt_contain_url)
 
 
-if reply_boolean_to_assertion(the_prompt_contain_url):
+if reply_boolean_or_none_to_assertion(the_prompt_contain_url):
     url = contains_url(task)
 
     # Debug Print
@@ -332,7 +334,7 @@ time.sleep(61)
 language = what_language_is_it_written_in(task)
 
 # Debug Print
-print("ISO 639-1 language code: " + language)
+print("ISO 639-1 language code of the task: " + language)
 print("---")
 
 
@@ -397,10 +399,10 @@ for step in steps:
     dictionary_step = {
         "step_number": step_number,
         "step_for_task": step,
-        "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step)),
-        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step)),
-        "contains_geographic_location": reply_boolean_to_assertion(is_it_geolocalizable(step)),
-        "contains_url": reply_boolean_to_assertion(it_contains_url(step))
+        "need_search_on_google": reply_boolean_or_none_to_assertion(need_search_on_google(step)),
+        "need_scraping_on_web": reply_boolean_or_none_to_assertion(need_scraping_on_web(step)),
+        "contains_geographic_location": reply_boolean_or_none_to_assertion(is_it_geolocalizable(step)),
+        "contains_url": reply_boolean_or_none_to_assertion(it_contains_url(step))
     }
 
     step_number += 1
