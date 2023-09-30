@@ -11,7 +11,7 @@ In addition to this, an Agent should extract as much information as possible fro
 
 ---
 
-The fundamental features:
+### The features will:
 - Expansion of a task into a number of intermediate steps necessary to carry out the task (implemented)
 - Language correction (grammar, etc.) of the prompt (implemented)
 - Understand if the task includes a geographic location and locate it (implemented)
