@@ -131,53 +131,53 @@ def geolocalize(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1
     return response["choices"][0]["message"]["content"]
 
 
-def need_search_on_google(step_for_task):
-    query_for_step = "Do I need to do a Google search to do this? Answer exclusively with yes or no.\n" + step_for_task
+def need_search_on_google(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
+    prompt = "Do I need to do a Google search to do this? Answer exclusively with yes or no.\n" + prompt
 
-    query_for_step = [
+    prompt = [
         {
             "role": "user",
-            "content": query_for_step
+            "content": prompt
         }
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=query_for_step,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        model=model,
+        messages=prompt,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def need_scraping_on_web(step_for_task):
-    query_for_step = "Do I need to do scraping on the web to do this? Answer exclusively with yes or no.\n" + step_for_task
+def need_scraping_on_web(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
+    prompt = "Do I need to do scraping on the web to do this? Answer exclusively with yes or no.\n" + prompt
 
-    query_for_step = [
+    prompt = [
         {
             "role": "user",
-            "content": query_for_step
+            "content": prompt
         }
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
-        messages=query_for_step,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        model=model,
+        messages=prompt,
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def what_language_is_it_written_in(prompt):
+def what_language_is_it_written_in(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "In what language is the following text? Reply exclusively with an ISO 639-1 code.\n" + prompt
 
     prompt = [
@@ -188,13 +188,13 @@ def what_language_is_it_written_in(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"].lower()
@@ -226,7 +226,7 @@ def extract_text_from_html_page(url):
     return markdown_text
 
 
-def it_contains_url(prompt):
+def it_contains_url(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "Does this text contain a URL? Reply exclusively with yes or no.\n" + prompt
 
     prompt = [
@@ -237,19 +237,19 @@ def it_contains_url(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
 
 
-def contains_url(prompt):
+def contains_url(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "Extract the URL contained in this text; reply to this query with a URL only.\n" + prompt
 
     prompt = [
@@ -260,13 +260,13 @@ def contains_url(prompt):
     ]
 
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model=model,
         messages=prompt,
-        temperature=0.5,
-        max_tokens=2048,
-        top_p=1,
-        frequency_penalty=0,
-        presence_penalty=0
+        temperature=temperature,
+        max_tokens=max_tokens,
+        top_p=top_p,
+        frequency_penalty=frequency_penalty,
+        presence_penalty=presence_penalty
     )
 
     return response["choices"][0]["message"]["content"]
@@ -306,6 +306,14 @@ if reply_boolean_or_none_to_assertion(the_prompt_is_geolocalizable):
     # Debug Print
     print("The geographic location in the task is: " + place)
 print("---")
+
+
+# Debug Print
+print("Now wait 61 seconds for avoid exceeding 10,000 tokens/min")
+print("---")
+
+# To avoid exceeding 10,000 tokens/min
+time.sleep(61)
 
 
 the_prompt_contain_url = it_contains_url(task)
