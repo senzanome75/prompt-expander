@@ -83,7 +83,7 @@ def prompt_corrector(prompt):
     return response["choices"][0]["message"]["content"]
 
 
-def it_is_geolocalizable(prompt):
+def is_it_geolocalizable(prompt):
     prompt = "Does this text refer to a geographic location? Answer exclusively with yes or no.\n" + prompt
 
     prompt = [
@@ -292,7 +292,7 @@ if need_corrections_boolean:
 print("---")
 
 
-the_prompt_is_geolocalizable = it_is_geolocalizable(task)
+the_prompt_is_geolocalizable = is_it_geolocalizable(task)
 
 # Debug Print
 print("Does the task talk about a geographic location? " + the_prompt_is_geolocalizable)
