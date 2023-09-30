@@ -11,7 +11,7 @@ In addition to this, an Agent should extract as much information as possible fro
 
 ---
 
-Using **markdown** as the format in which to request responses to **prompts** opens up the possibility of using common **regexes** to manage output from GPT 3.5/4.
+Using **markdown** as the format in which to request responses to **prompts** opens up the possibility of using common **regexes** to manage output from GPT 3.5/4 by taking advantage of the predictability of the output.
 
 ---
 
