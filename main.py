@@ -200,32 +200,6 @@ def what_language_is_it_written_in(prompt, model="gpt-4", temperature=0.5, max_t
     return response["choices"][0]["message"]["content"].lower()
 
 
-def search_google(query, query_language):
-    try:
-        # Search on Google
-        results = search(query, num_results=10, advanced=True, lang=query_language)
-        return results
-
-    except Exception as e:
-        return False
-
-
-def extract_text_from_html_page(url):
-    # Request to webpage
-    response = requests.get(url)
-
-    # Create a BeautifulSoup object to parse the HTML of the page
-    soup = BeautifulSoup(response.text, "html5lib")
-
-    # Use html2text to convert HTML to Markdown
-    text_maker = html2text.HTML2Text()
-    # text_maker.ignore_links = True
-
-    markdown_text = text_maker.handle(soup.prettify())
-
-    return markdown_text
-
-
 def it_contains_url(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=1, frequency_penalty=0, presence_penalty=0):
     prompt = "Does this text contain a URL? Reply exclusively with yes or no.\n" + prompt
 
@@ -270,6 +244,32 @@ def contains_url(prompt, model="gpt-4", temperature=0.5, max_tokens=2048, top_p=
     )
 
     return response["choices"][0]["message"]["content"]
+
+
+def search_google(query, query_language):
+    try:
+        # Search on Google
+        results = search(query, num_results=10, advanced=True, lang=query_language)
+        return results
+
+    except Exception as e:
+        return False
+
+
+def extract_text_from_html_page(url):
+    # Request to webpage
+    response = requests.get(url)
+
+    # Create a BeautifulSoup object to parse the HTML of the page
+    soup = BeautifulSoup(response.text, "html5lib")
+
+    # Use html2text to convert HTML to Markdown
+    text_maker = html2text.HTML2Text()
+    # text_maker.ignore_links = True
+
+    markdown_text = text_maker.handle(soup.prettify())
+
+    return markdown_text
 
 
 ### The script starts here ###
