@@ -1,4 +1,4 @@
-# Import Stuff
+# Import Stuffs
 import os
 import re
 import openai
@@ -380,18 +380,20 @@ print(type(steps))
 # Fill a list with the step each in a dictionary
 for step in steps:
     # Debug Print
-    print("Now wait 40 seconds for avoid exceeding 10,000 tokens/min")
+    print("Now wait 61 seconds for avoid exceeding 10,000 tokens/min")
     print("---")
 
     # To avoid exceeding 10,000 tokens/min
-    time.sleep(40)
+    time.sleep(61)
 
     # Each step in a dictionary
     dictionary_step = {
         "step_number": step_number,
         "step_for_task": step[0],
         "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step[0])),
-        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step[0]))
+        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step[0])),
+        "contains_geographic_location": reply_boolean_to_assertion(it_is_geolocalizable(step[0])),
+        "contains_url": reply_boolean_to_assertion(it_contains_url(step[0]))
     }
 
     step_number += 1
