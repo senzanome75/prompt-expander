@@ -41,8 +41,7 @@ But requirements.txt is provided.
 
 ---
 
-### To Run
-Just:
+### To Run Just
 1) clone the repository: git clone ...
 2) create and activate a venv
 3) install dependencies or use requirements.txt
