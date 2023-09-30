@@ -320,6 +320,14 @@ if reply_boolean_to_assertion(the_prompt_contain_url):
 print("---")
 
 
+# Debug Print
+print("Now wait 61 seconds for avoid exceeding 10,000 tokens/min")
+print("---")
+
+# To avoid exceeding 10,000 tokens/min
+time.sleep(61)
+
+
 # Extract language from task in ISO 639-1 code
 language = what_language_is_it_written_in(task)
 
