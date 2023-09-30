@@ -195,7 +195,7 @@ def what_language_is_it_written_in(prompt):
         presence_penalty=0
     )
 
-    return response["choices"][0]["message"]["content"]
+    return response["choices"][0]["message"]["content"].lower()
 
 
 def search_google(query, query_language):
@@ -320,6 +320,12 @@ if reply_boolean_to_assertion(the_prompt_contain_url):
 print("---")
 
 
+# Extract language from task in ISO 639-1 code
+language = what_language_is_it_written_in(task)
+
+# Debug Print
+print("ISO 639-1 language code: " + language)
+print("---")
 
 
 # Build the first prompt expansion
@@ -336,11 +342,11 @@ history = [
 
 
 # Debug Print
-print("Now wait 40 seconds for avoid exceeding 10,000 tokens/min")
+print("Now wait 61 seconds for avoid exceeding 10,000 tokens/min")
 print("---")
 
 # To avoid exceeding 10,000 tokens/min
-time.sleep(40)
+time.sleep(61)
 
 
 # First query to OpenAI
@@ -351,19 +357,12 @@ print("First step raw response from OpenAI")
 print(first_step_response)
 print("---")
 
-# Extract language from task in ISO 639-1 code
-language = what_language_is_it_written_in(task)
-
-# Debug Print
-print("ISO 639-1 language code")
-print(language)
-print("---")
 
 # Define the RegEx
 # To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly
-numbered_list_regex = r"\d+\[.]\s(.+)\n*"
+numbered_list_regex = r"\d+\.\s(.+)\n+"
 # To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly
-bulleted_list_regex = r"-\s(.+)\n*"
+bulleted_list_regex = r"-\s(.+)\n+"
 
 # Extract the steps from numbered list in markdown
 steps = re.findall(numbered_list_regex, first_step_response + "\n")
@@ -389,11 +388,11 @@ for step in steps:
     # Each step in a dictionary
     dictionary_step = {
         "step_number": step_number,
-        "step_for_task": step[0],
-        "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step[0])),
-        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step[0])),
-        "contains_geographic_location": reply_boolean_to_assertion(it_is_geolocalizable(step[0])),
-        "contains_url": reply_boolean_to_assertion(it_contains_url(step[0]))
+        "step_for_task": step,
+        "need_search_on_google": reply_boolean_to_assertion(need_search_on_google(step)),
+        "need_scraping_on_web": reply_boolean_to_assertion(need_scraping_on_web(step)),
+        "contains_geographic_location": reply_boolean_to_assertion(is_it_geolocalizable(step)),
+        "contains_url": reply_boolean_to_assertion(it_contains_url(step))
     }
 
     step_number += 1
