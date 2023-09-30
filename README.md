@@ -7,7 +7,7 @@ This repository concerns a **Prompt Expander**: a **Proof of Concept Software** 
 
 In my view **an initial expansion of the prompt should be the first task an Agent should perform**. Optimizing the initial prompt (with something Grammarly-like) could also help generate a better response.
 
-In addition to this, an Agent should extract as much information as possible from the input task such as: **geographics locations**, **ISO 639-1 language codes**, **URLs**, etc. for possible later use.
+In addition to this, an Agent should extract as much information as possible from the input task such as: **geographical locations**, **ISO 639-1 language codes**, **URLs**, etc. for possible later use.
 
 ---
 
@@ -18,7 +18,7 @@ IMPORTANT: using **Markdown** as the format in which to request responses to **p
 ### The features will:
 - Expansion of a task into a number of intermediate steps necessary to carry out the task (implemented)
 - Language correction (grammar, etc.) of the prompt (implemented)
-- Understand if the task includes a geographic location and extract it (implemented)
+- Understand if the task includes a geographical locations and extract it (implemented)
 - Understand the language of task and reply with ISO 639-1 language code (implemented)
 - Understand if the task includes a URL and extract it (implemented)
 - Understand whether a Google search is necessary to carry out a step and, if the answer is positive, carry it out (partially implemented)
