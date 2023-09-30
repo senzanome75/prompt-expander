@@ -377,9 +377,9 @@ print("---")
 
 
 # Define the RegExes
-# To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly
+# To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly sometimes
 numbered_list_regex = r"\d+\.\s(.+)\n+"
-# To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly
+# To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly sometimes
 bulleted_list_regex = r"-\s(.+)\n+"
 
 # Extract the steps from numbered list in markdown
