@@ -376,7 +376,7 @@ print(first_step_response)
 print("---")
 
 
-# Define the RegEx
+# Define the RegExes
 # To extract the steps from numbered list in markdown - It may cause problems and not capture the query output correctly
 numbered_list_regex = r"\d+\.\s(.+)\n+"
 # To extract the points from bulleted list in markdown - It may cause problems and not capture the query output correctly
