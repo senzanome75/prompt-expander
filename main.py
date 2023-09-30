@@ -86,7 +86,7 @@ def prompt_corrector(prompt):
 
 
 def is_it_geolocalizable(prompt):
-    prompt = "Does this text refer to a geographic location? Answer exclusively with yes or no.\n" + prompt
+    prompt = "Does this text include a geographic location? Answer exclusively with yes or no.\n" + prompt
 
     prompt = [
         {
