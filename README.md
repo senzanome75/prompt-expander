@@ -26,6 +26,9 @@ IMPORTANT: using **Markdown** as the format in which to request responses to **p
 - Saving detailed logs to disk (in Markdown format), necessary later to reconstruct the inputs/prompts/outputs chain (to do)
 - Use of Markdown as a standard for processing (both for **predictability of OpenAI GPT 3.5/4 output** and for **simplicity of manage** the format itself with common regexes)
 
+
+If you want more insight you could read this post blog: https://ingegnerealbano.com/prompt-expansion-con-openai-potrebbe-essere-una-nuova-idea/
+
 ---
 
 ### Dependencies
